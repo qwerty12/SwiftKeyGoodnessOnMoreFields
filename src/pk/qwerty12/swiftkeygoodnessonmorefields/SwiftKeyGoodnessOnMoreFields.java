@@ -29,7 +29,6 @@ public class SwiftKeyGoodnessOnMoreFields implements IXposedHookLoadPackage {
 						if ((Boolean) XposedHelpers.callStaticMethod(classEditorInfoUtils, "isValidEditorInfo", editorInfo)) {
 							XposedHelpers.setBooleanField(param.thisObject, "mEditorIsSearchField", false);
 	
-							int editorClass = editorInfo.inputType & EditorInfo.TYPE_MASK_CLASS;
 							int editorFlags = editorInfo.inputType & EditorInfo.TYPE_MASK_FLAGS;
 							int editorVariant = editorInfo.inputType & EditorInfo.TYPE_MASK_VARIATION;
 	
@@ -41,7 +40,7 @@ public class SwiftKeyGoodnessOnMoreFields implements IXposedHookLoadPackage {
 	
 							if (isLicenseValid && //Yes, this one stays.
 								enabledLanguagePacks > 0 &&
-								editorClass == EditorInfo.TYPE_CLASS_TEXT &&
+								((editorInfo.inputType & EditorInfo.TYPE_MASK_CLASS) == EditorInfo.TYPE_CLASS_TEXT) &&
 								editorVariant != InputType.TYPE_TEXT_VARIATION_PASSWORD &&
 								editorVariant != InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD &&
 								editorVariant != InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD &&
